@@ -63,7 +63,7 @@ declare_lint_rule! {
         version: "2.3.8",
         name: "noProto",
         language: "js",
-        recommended: false,
+        recommended: true,
         sources: &[RuleSource::Eslint("no-proto").same()],
     }
 }
@@ -89,14 +89,15 @@ impl Rule for NoProto {
                         .ok()?
                         .to_trimmed_text()
                         .trim_matches(['\'', '"', '`'])
-                        == "__proto__"
-                    => {
-                        return Some(());
-                    }
+                        == "__proto__" =>
+                {
+                    return Some(());
+                }
                 AnyJsAssignment::JsStaticMemberAssignment(assignment)
-                    if assignment.member().ok()?.to_trimmed_text() == "__proto__" => {
-                        return Some(());
-                    }
+                    if assignment.member().ok()?.to_trimmed_text() == "__proto__" =>
+                {
+                    return Some(());
+                }
                 _ => {}
             },
             NoProtoQuery::AnyJsMemberExpression(expr) => match expr {
