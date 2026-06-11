@@ -4,6 +4,9 @@ on:
     branches:
       - feat/use-includes-last-index-of
 
+permissions:
+  contents: write
+
 jobs:
   update-snapshots:
     runs-on: ubuntu-latest
